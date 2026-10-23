@@ -383,11 +383,13 @@
       }
 
       try {
+        // Use URLSearchParams to avoid CORS preflight options request
+        const formData = new URLSearchParams();
+        formData.append("data", JSON.stringify(payload));
+
         const response = await fetch(SCRIPT_URL, {
           method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload)
+          body: formData
         });
 
         const res = await response.json();
@@ -401,6 +403,3 @@
         alert("Submission failed. Check network connectivity.");
       }
     }
-  </script>
-</body>
-</html>
