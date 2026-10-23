@@ -1,4 +1,4 @@
-<!DOCTYPE1 html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -131,4 +131,276 @@
 
       <!-- ================= LAYER 2: NEXT SESSION BATCH & FEES ================= -->
       <section id="layer-2" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
-        <div class="border-b border-slate
+        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-days text-blue-600"></i> Layer 2: Next Session Batch Details & Fee Structure
+          </h2>
+          <span class="text-xs text-slate-400">Step 2 of 3</span>
+        </div>
+
+        <!-- Next Session Batch Details -->
+        <div class="mb-6">
+          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Next Session Batch Details</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Target Class / Stream</label>
+              <select id="targetClass" onchange="calculateFees()" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Class 10 Standard">Class 10 Standard</option>
+                <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
+                <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
+                <option value="Class 11 Commerce">Class 11 Commerce</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Times *</label>
+              <select id="batchTimes" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Morning (08:00 AM - 11:30 AM)">Morning (08:00 AM - 11:30 AM)</option>
+                <option value="Afternoon (01:00 PM - 04:30 PM)">Afternoon (01:00 PM - 04:30 PM)</option>
+                <option value="Evening (05:00 PM - 08:30 PM)">Evening (05:00 PM - 08:30 PM)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Days *</label>
+              <select id="batchDays" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Mon - Wed - Fri">Mon - Wed - Fri (MWF)</option>
+                <option value="Tue - Thu - Sat">Tue - Thu - Sat (TTS)</option>
+                <option value="Weekend Intensive (Sat & Sun)">Weekend Intensive (Sat & Sun)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fee Details Table -->
+        <div class="mb-6">
+          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Fee Details</h3>
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase">
+                <tr>
+                  <th class="p-3">Component</th>
+                  <th class="p-3">Frequency</th>
+                  <th class="p-3 text-right">Amount ($)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-3 font-medium">Admission / Re-enrollment Fee</td>
+                  <td class="p-3 text-slate-500">One-time</td>
+                  <td class="p-3 text-right font-mono"><input type="number" id="admissionFee" value="250" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium">Tuition Fee</td>
+                  <td class="p-3 text-slate-500">Annual</td>
+                  <td class="p-3 text-right font-mono"><input type="number" id="tuitionFee" value="3200" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium">Technology & Resource Fee</td>
+                  <td class="p-3 text-slate-500">Annual</td>
+                  <td class="p-3 text-right font-mono"><input type="number" id="technologyFee" value="350" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                </tr>
+                <tr class="bg-slate-50 font-bold">
+                  <td class="p-3" colspan="2">Total Payable Fee</td>
+                  <td class="p-3 text-right font-mono text-blue-600 text-base" id="totalFeeDisplay">$3,800.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+          <button type="button" onclick="goToStep(1)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" onclick="goToStep(3)" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2">
+            Next: Parent Feedback <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ================= LAYER 3: PARENT FEEDBACK & SUBMISSION ================= -->
+      <section id="layer-3" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
+        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-comments text-blue-600"></i> Layer 3: Feedback Points from Parents
+          </h2>
+          <span class="text-xs text-slate-400">Step 3 of 3</span>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Satisfaction Rating</label>
+            <select id="parentSatisfaction" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="5 - Highly Satisfied">⭐⭐⭐⭐⭐ 5 - Highly Satisfied</option>
+              <option value="4 - Satisfied">⭐⭐⭐⭐ 4 - Satisfied</option>
+              <option value="3 - Neutral">⭐⭐⭐ 3 - Neutral</option>
+              <option value="2 - Needs Improvement">⭐⭐ 2 - Needs Improvement</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Key Area of Improvement Requested</label>
+            <select id="improvementArea" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Academic Support & Mentorship">Academic Support & Mentorship</option>
+              <option value="Extracurricular & Sports Facilities">Extracurricular & Sports Facilities</option>
+              <option value="Teacher Communication">Teacher Communication</option>
+              <option value="Infrastructure & Labs">Infrastructure & Labs</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Concerns / Suggestions</label>
+            <textarea id="parentConcerns" rows="3" placeholder="Enter specific feedback provided by parents..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Counselor Internal Notes</label>
+            <textarea id="counselorNotes" rows="2" placeholder="Private internal session notes..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+          <button type="button" onclick="goToStep(2)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" onclick="submitToGoogleSheets()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Submit & Save Session
+          </button>
+        </div>
+      </section>
+
+    </form>
+  </div>
+
+  <script>
+    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
+    const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+    function goToStep(stepNumber) {
+      document.getElementById('layer-1').classList.add('hidden');
+      document.getElementById('layer-2').classList.add('hidden');
+      document.getElementById('layer-3').classList.add('hidden');
+
+      document.getElementById(`layer-${stepNumber}`).classList.remove('hidden');
+
+      // Update Nav Indicators
+      for (let i = 1; i <= 3; i++) {
+        const nav = document.getElementById(`step-nav-${i}`);
+        if (i === stepNumber) {
+          nav.className = "step-active border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
+        } else if (i < stepNumber) {
+          nav.className = "step-complete border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
+        } else {
+          nav.className = "border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all";
+        }
+      }
+    }
+
+    function calculateFees() {
+      const admission = parseFloat(document.getElementById('admissionFee').value) || 0;
+      const tuition = parseFloat(document.getElementById('tuitionFee').value) || 0;
+      const tech = parseFloat(document.getElementById('technologyFee').value) || 0;
+      const total = admission + tuition + tech;
+
+      document.getElementById('totalFeeDisplay').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+    }
+
+    function loadSampleData() {
+      document.getElementById('formId').value = "STU-2026-8941";
+      document.getElementById('studentName').value = "Alex Morgan";
+      document.getElementById('studentBatch').value = "2025-2026 Morning-A";
+      document.getElementById('studentCampus').value = "Main City Campus";
+      document.getElementById('board').value = "CBSE";
+      document.getElementById('currentClass').value = "Class 10";
+      document.getElementById('parentName').value = "Robert Morgan";
+    }
+
+    async function fetchStudentDetails() {
+      const formId = document.getElementById('formId').value.trim();
+      if (!formId) {
+        alert("Please enter a Form ID to fetch details.");
+        return;
+      }
+
+      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+        alert("Please configure your Google Apps Script URL in index.html first. Loading demo data instead.");
+        loadSampleData();
+        return;
+      }
+
+      try {
+        const response = await fetch(`${SCRIPT_URL}?formId=${encodeURIComponent(formId)}`);
+        const result = await response.json();
+
+        if (result.status === "success") {
+          const d = result.data;
+          document.getElementById('studentName').value = d['Student Name'] || '';
+          document.getElementById('studentBatch').value = d['Batch'] || '';
+          document.getElementById('studentCampus').value = d['Campus'] || '';
+          document.getElementById('board').value = d['Board'] || '';
+          document.getElementById('currentClass').value = d['Class'] || '';
+          alert("Student record found!");
+        } else {
+          alert("Record not found for Form ID: " + formId);
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        alert("Error fetching student record.");
+      }
+    }
+
+    async function submitToGoogleSheets() {
+      const formId = document.getElementById('formId').value;
+      const studentName = document.getElementById('studentName').value;
+
+      if (!formId || !studentName) {
+        alert("Please fill in the required Layer 1 student details before submitting.");
+        goToStep(1);
+        return;
+      }
+
+      const payload = {
+        formId: formId,
+        studentName: studentName,
+        studentBatch: document.getElementById('studentBatch').value,
+        studentCampus: document.getElementById('studentCampus').value,
+        board: document.getElementById('board').value,
+        currentClass: document.getElementById('currentClass').value,
+        batchTimes: document.getElementById('batchTimes').value,
+        batchDays: document.getElementById('batchDays').value,
+        admissionFee: document.getElementById('admissionFee').value,
+        tuitionFee: document.getElementById('tuitionFee').value,
+        technologyFee: document.getElementById('technologyFee').value,
+        parentSatisfaction: document.getElementById('parentSatisfaction').value,
+        improvementArea: document.getElementById('improvementArea').value,
+        parentConcerns: document.getElementById('parentConcerns').value,
+        counselorNotes: document.getElementById('counselorNotes').value
+      };
+
+      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+        alert("Demo Submission Successful! (Configure SCRIPT_URL to post to Google Sheets).");
+        return;
+      }
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+
+        const res = await response.json();
+        if (res.status === "success") {
+          alert("Counseling session saved directly to Google Sheets!");
+        } else {
+          alert("Error saving: " + res.message);
+        }
+      } catch (err) {
+        console.error("Submission error:", err);
+        alert("Submission failed. Check network connectivity.");
+      }
+    }
+  </script>
+</body>
+</html>
