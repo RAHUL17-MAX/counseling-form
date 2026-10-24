@@ -271,10 +271,23 @@
 
     </form>
   </div>
+<!-- Hidden Iframe to bypass CORS restrictions -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <script>
     // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
-    const SCRIPT_URL ="https://script.google.com/a/macros/allen.in/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
+
+    // Listen for iframe response from Apps Script
+    window.addEventListener("message", function(event) {
+      if (event.data === "SUBMISSION_SUCCESS") {
+        alert("Counseling session saved directly to Google Sheets!");
+        document.getElementById('counselingForm').reset();
+        goToStep(1);
+      } else if (event.data === "SUBMISSION_ERROR") {
+        alert("Error saving session to Google Sheets.");
+      }
+    });
 
     function goToStep(stepNumber) {
       document.getElementById('layer-1').classList.add('hidden');
@@ -283,7 +296,6 @@
 
       document.getElementById(`layer-${stepNumber}`).classList.remove('hidden');
 
-      // Update Nav Indicators
       for (let i = 1; i <= 3; i++) {
         const nav = document.getElementById(`step-nav-${i}`);
         if (i === stepNumber) {
@@ -313,6 +325,7 @@
       document.getElementById('board').value = "CBSE";
       document.getElementById('currentClass').value = "Class 10";
       document.getElementById('parentName').value = "Robert Morgan";
+      alert("Demo student details populated into Layer 1!");
     }
 
     async function fetchStudentDetails() {
@@ -322,39 +335,35 @@
         return;
       }
 
-      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Please configure your Google Apps Script URL in index.html first. Loading demo data instead.");
-        loadSampleData();
-        return;
-      }
-
       try {
         const response = await fetch(`${SCRIPT_URL}?formId=${encodeURIComponent(formId)}`);
         const result = await response.json();
 
         if (result.status === "success") {
           const d = result.data;
-          document.getElementById('studentName').value = d['Student Name'] || '';
-          document.getElementById('studentBatch').value = d['Batch'] || '';
-          document.getElementById('studentCampus').value = d['Campus'] || '';
-          document.getElementById('board').value = d['Board'] || '';
-          document.getElementById('currentClass').value = d['Class'] || '';
+          document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
+          document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
+          document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
+          document.getElementById('board').value = d['Board'] || d['board'] || '';
+          document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
           alert("Student record found!");
         } else {
-          alert("Record not found for Form ID: " + formId);
+          alert("Record not found for Form ID: " + formId + ". Populating demo data.");
+          loadSampleData();
         }
       } catch (err) {
         console.error("Fetch Error:", err);
-        alert("Error fetching student record.");
+        alert("Could not reach Google Sheets. Loading demo data instead.");
+        loadSampleData();
       }
     }
 
-    async function submitToGoogleSheets() {
+    function submitToGoogleSheets() {
       const formId = document.getElementById('formId').value;
       const studentName = document.getElementById('studentName').value;
 
       if (!formId || !studentName) {
-        alert("Please fill in the required Layer 1 student details before submitting.");
+        alert("Please fill in required Layer 1 details before submitting.");
         goToStep(1);
         return;
       }
@@ -377,29 +386,20 @@
         counselorNotes: document.getElementById('counselorNotes').value
       };
 
-      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Demo Submission Successful! (Configure SCRIPT_URL to post to Google Sheets).");
-        return;
-      }
+      // Form post via hidden iframe bypasses CORS completely
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SCRIPT_URL;
+      form.target = 'hidden_iframe';
 
-      try {
-        // Use URLSearchParams to avoid CORS preflight options request
-        const formData = new URLSearchParams();
-        formData.append("data", JSON.stringify(payload));
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'payload';
+      input.value = JSON.stringify(payload);
 
-        const response = await fetch(SCRIPT_URL, {
-          method: "POST",
-          body: formData
-        });
-
-        const res = await response.json();
-        if (res.status === "success") {
-          alert("Counseling session saved directly to Google Sheets!");
-        } else {
-          alert("Error saving: " + res.message);
-        }
-      } catch (err) {
-        console.error("Submission error:", err);
-        alert("Submission failed. Check network connectivity.");
-      }
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
     }
+  </script>
