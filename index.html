@@ -367,70 +367,67 @@
       document.body.appendChild(script);
     }
 
-    function submitToGoogleSheets() {
-      const formId = document.getElementById('formId')?.value.trim();
-      const studentName = document.getElementById('studentName')?.value.trim();
+   async function submitToGoogleSheets() {
+  const formId = document.getElementById('formId')?.value.trim();
+  const studentName = document.getElementById('studentName')?.value.trim();
 
-      if (!formId || !studentName) {
-        alert("Please fill in required Layer 1 details before submitting.");
-        goToStep(1);
-        return;
-      }
+  if (!formId || !studentName) {
+    alert("Please fill in required Layer 1 details before submitting.");
+    goToStep(1);
+    return;
+  }
 
-      const submitBtn = document.getElementById('submitBtn');
-      let originalText = submitBtn ? submitBtn.innerHTML : "";
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
-      }
+  const submitBtn = document.getElementById('submitBtn');
+  let originalText = submitBtn ? submitBtn.innerHTML : "";
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
+  }
 
-      const payload = {
-        formId: formId,
-        studentName: studentName,
-        studentBatch: document.getElementById('studentBatch')?.value || "",
-        studentCampus: document.getElementById('studentCampus')?.value || "",
-        board: document.getElementById('board')?.value || "",
-        currentClass: document.getElementById('currentClass')?.value || "",
-        parentName: document.getElementById('parentName')?.value || "",
-        parentEmail: document.getElementById('parentEmail')?.value || "",
-        targetClass: document.getElementById('targetClass')?.value || "",
-        batchTimes: document.getElementById('batchTimes')?.value || "",
-        batchDays: document.getElementById('batchDays')?.value || "",
-        admissionFee: document.getElementById('admissionFee')?.value || 0,
-        tuitionFee: document.getElementById('tuitionFee')?.value || 0,
-        technologyFee: document.getElementById('technologyFee')?.value || 0,
-        parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
-        improvementArea: document.getElementById('improvementArea')?.value || "",
-        parentConcerns: document.getElementById('parentConcerns')?.value || "",
-        counselorNotes: document.getElementById('counselorNotes')?.value || ""
-      };
+  const payload = {
+    formId: formId,
+    studentName: studentName,
+    studentBatch: document.getElementById('studentBatch')?.value || "",
+    studentCampus: document.getElementById('studentCampus')?.value || "",
+    board: document.getElementById('board')?.value || "",
+    currentClass: document.getElementById('currentClass')?.value || "",
+    parentName: document.getElementById('parentName')?.value || "",
+    parentEmail: document.getElementById('parentEmail')?.value || "",
+    targetClass: document.getElementById('targetClass')?.value || "",
+    batchTimes: document.getElementById('batchTimes')?.value || "",
+    batchDays: document.getElementById('batchDays')?.value || "",
+    admissionFee: document.getElementById('admissionFee')?.value || 0,
+    tuitionFee: document.getElementById('tuitionFee')?.value || 0,
+    technologyFee: document.getElementById('technologyFee')?.value || 0,
+    parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
+    improvementArea: document.getElementById('improvementArea')?.value || "",
+    parentConcerns: document.getElementById('parentConcerns')?.value || "",
+    counselorNotes: document.getElementById('counselorNotes')?.value || ""
+  };
 
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = SCRIPT_URL;
-      form.target = 'hidden_iframe';
+  try {
+    // Direct cross-origin fetch call compatible with all mobile browsers (Android Chrome & iOS Safari)
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors", // Bypasses mobile cross-domain CORS block
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload)
+    });
 
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'payload';
-      input.value = JSON.stringify(payload);
+    alert("Counseling session saved directly to Google Sheets!");
+    const counselingForm = document.getElementById('counselingForm');
+    if (counselingForm) counselingForm.reset();
+    goToStep(1);
 
-      form.appendChild(input);
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      setTimeout(() => {
-        alert("Counseling session saved directly to Google Sheets!");
-        const counselingForm = document.getElementById('counselingForm');
-        if (counselingForm) counselingForm.reset();
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        }
-        goToStep(1);
-      }, 1500);
+  } catch (err) {
+    console.error("Submission Error:", err);
+    alert("Could not connect to Google Sheets. Check your mobile data or Wi-Fi connection.");
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
     }
-  </script>
-</body>
-</html>
+  }
+}
