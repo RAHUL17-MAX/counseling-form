@@ -276,7 +276,7 @@
 
   <script>
     // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
-    const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
+    const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
     function goToStep(stepNumber) {
       document.getElementById('layer-1').classList.add('hidden');
@@ -361,7 +361,7 @@
       }
     }
 
-   async function submitToGoogleSheets() {
+    function submitToGoogleSheets() {
       const formId = document.getElementById('formId') ? document.getElementById('formId').value : "";
       const studentName = document.getElementById('studentName') ? document.getElementById('studentName').value : "";
 
@@ -371,7 +371,6 @@
         return;
       }
 
-      // Find submit button and trigger loading state
       const submitBtn = event ? (event.target || document.querySelector("button[onclick='submitToGoogleSheets()']")) : null;
       let originalText = "";
       if (submitBtn) {
@@ -399,49 +398,41 @@
       };
 
       if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Demo Submission Successful!");
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        }
-        goToStep(1);
+        setTimeout(() => {
+          alert("Demo Submission Successful!");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+          }
+          goToStep(1);
+        }, 1000);
         return;
       }
 
-      try {
-        // Construct form body parameter to bypass mobile iframe/CORS issues
-        const bodyData = new URLSearchParams();
-        bodyData.append("payload", JSON.stringify(payload));
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SCRIPT_URL;
+      form.target = 'hidden_iframe';
 
-        // no-cors fetch ensures full data transmission on mobile devices
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: bodyData
-        });
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'payload';
+      input.value = JSON.stringify(payload);
 
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      setTimeout(() => {
         alert("Counseling session saved directly to Google Sheets!");
-
-        // Reset form and return to Layer 1
         const counselingForm = document.getElementById('counselingForm');
         if (counselingForm) counselingForm.reset();
-
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
         }
-
         goToStep(1);
-
-      } catch (err) {
-        console.error("Submission error:", err);
-        alert("Submission failed. Check network connection.");
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        }
-      }
+      }, 1500);
     }
+  </script>
