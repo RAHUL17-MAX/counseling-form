@@ -386,9 +386,9 @@
         counselorNotes: document.getElementById('counselorNotes').value
       };
 
-      // Form post via hidden iframe bypasses CORS completely
+      // Submit via hidden iframe to trigger doGet parameter handler
       const form = document.createElement('form');
-      form.method = 'POST';
+      form.method = 'GET';
       form.action = SCRIPT_URL;
       form.target = 'hidden_iframe';
 
