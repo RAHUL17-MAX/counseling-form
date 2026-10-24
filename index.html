@@ -9,7 +9,6 @@
   <style>
     .step-active { border-color: #3B82F6; color: #1D4ED8; background-color: #EFF6FF; }
     .step-complete { border-color: #10B981; color: #047857; background-color: #ECFDF5; }
-    /* Prevent iOS auto-zoom on form focus */
     @media (max-width: 768px) {
       input, select, textarea { font-size: 16px !important; }
     }
@@ -34,7 +33,7 @@
       </span>
     </header>
 
-    <!-- Mobile-Friendly Stepper Navigation -->
+    <!-- Stepper Navigation -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-6">
       <div id="step-nav-1" class="step-active border-2 rounded-lg p-3 sm:p-4 flex items-center gap-3 transition-all">
         <div class="w-8 h-8 shrink-0 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">1</div>
@@ -71,7 +70,6 @@
           <span class="text-xs text-slate-400">Step 1 of 3</span>
         </div>
 
-        <!-- Mobile Form ID Search Bar -->
         <div class="bg-blue-50/60 border border-blue-100 rounded-lg p-3 sm:p-4 mb-5">
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Form ID Search</label>
           <div class="flex flex-col sm:flex-row gap-2">
@@ -87,7 +85,6 @@
           </div>
         </div>
 
-        <!-- Student Inputs -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">Student Name *</label>
@@ -178,7 +175,6 @@
           </div>
         </div>
 
-        <!-- Mobile Scrollable Fee Table -->
         <div class="mb-5">
           <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">Fee Structure</h3>
           <div class="border border-slate-200 rounded-lg overflow-x-auto">
@@ -285,10 +281,9 @@
     </form>
   </div>
 
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
   <script>
-    const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbypGlAgu-_0-6W3wAtVEwa1keP7vsLU_96U_pj-Tk2ovtT6KxcsU0q-lFfPI0HWqPVXVw/exec";
+    // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+    const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
 
     function goToStep(stepNumber) {
       document.getElementById('layer-1').classList.add('hidden');
@@ -331,111 +326,107 @@
       alert("Demo student details loaded into Layer 1!");
     }
 
-  // Ensure this URL is your exact published Apps Script URL
-const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbypGlAgu-_0-6W3wAtVEwa1keP7vsLU_96U_pj-Tk2ovtT6KxcsU0q-lFfPI0HWqPVXVw/exec";
+    // JSONP Student Fetch Handler (Layer 1)
+    function fetchStudentDetails() {
+      const formIdInput = document.getElementById('formId');
+      const formId = formIdInput ? formIdInput.value.trim() : "";
 
-// 1. JSONP FETCH FUNCTION (Layer 1)
-function fetchStudentDetails() {
-  const formIdInput = document.getElementById('formId');
-  const formId = formIdInput ? formIdInput.value.trim() : "";
+      if (!formId) {
+        alert("Please enter a Form ID to fetch details.");
+        return;
+      }
 
-  if (!formId) {
-    alert("Please enter a Form ID to fetch details.");
-    return;
-  }
+      window.handleFetchCallback = function(result) {
+        if (result.status === "success" && result.data) {
+          const d = result.data;
+          if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
+          if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
+          if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
+          if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
+          if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
+          if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
+          if (document.getElementById('parentEmail')) document.getElementById('parentEmail').value = d['Parent Email'] || d['parentEmail'] || '';
+          alert("Student record found!");
+        } else {
+          alert("Record not found for Form ID: " + formId + ". Loading demo data.");
+          loadSampleData();
+        }
+      };
 
-  // Create global JSONP callback function
-  window.handleFetchCallback = function(result) {
-    if (result.status === "success" && result.data) {
-      const d = result.data;
-      if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
-      if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
-      if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
-      if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
-      if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
-      if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
-      if (document.getElementById('parentEmail')) document.getElementById('parentEmail').value = d['Parent Email'] || d['parentEmail'] || '';
-      alert("Student record found!");
-    } else {
-      alert("Record not found for Form ID: " + formId + ". Loading demo data.");
-      loadSampleData();
-    }
-  };
-
-  const script = document.createElement('script');
-  script.src = `${SCRIPT_URL}?action=fetch&formId=${encodeURIComponent(formId)}&callback=handleFetchCallback`;
-  script.onerror = function() {
-    alert("Could not connect to Google Sheets. Loading demo data instead.");
-    loadSampleData();
-  };
-  document.body.appendChild(script);
-}
-
-// 2. JSONP SUBMIT FUNCTION (Layer 3 - Mobile & Desktop Compatible)
-function submitToGoogleSheets() {
-  const formId = document.getElementById('formId')?.value.trim();
-  const studentName = document.getElementById('studentName')?.value.trim();
-
-  if (!formId || !studentName) {
-    alert("Please fill in required Layer 1 details before submitting.");
-    goToStep(1);
-    return;
-  }
-
-  const submitBtn = document.getElementById('submitBtn');
-  let originalText = submitBtn ? submitBtn.innerHTML : "";
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
-  }
-
-  const payload = {
-    formId: formId,
-    studentName: studentName,
-    studentBatch: document.getElementById('studentBatch')?.value || "",
-    studentCampus: document.getElementById('studentCampus')?.value || "",
-    board: document.getElementById('board')?.value || "",
-    currentClass: document.getElementById('currentClass')?.value || "",
-    parentName: document.getElementById('parentName')?.value || "",
-    parentEmail: document.getElementById('parentEmail')?.value || "",
-    targetClass: document.getElementById('targetClass')?.value || "",
-    batchTimes: document.getElementById('batchTimes')?.value || "",
-    batchDays: document.getElementById('batchDays')?.value || "",
-    admissionFee: document.getElementById('admissionFee')?.value || 0,
-    tuitionFee: document.getElementById('tuitionFee')?.value || 0,
-    technologyFee: document.getElementById('technologyFee')?.value || 0,
-    parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
-    improvementArea: document.getElementById('improvementArea')?.value || "",
-    parentConcerns: document.getElementById('parentConcerns')?.value || "",
-    counselorNotes: document.getElementById('counselorNotes')?.value || ""
-  };
-
-  // Create global submission callback
-  window.handleSubmitCallback = function(result) {
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+      const script = document.createElement('script');
+      script.src = `${SCRIPT_URL}?formId=${encodeURIComponent(formId)}&callback=handleFetchCallback`;
+      script.onerror = function() {
+        alert("Could not connect to Google Sheets. Loading demo data instead.");
+        loadSampleData();
+      };
+      document.body.appendChild(script);
     }
 
-    if (result && result.status === "success") {
-      alert("Counseling session saved directly to Google Sheets!");
-      const counselingForm = document.getElementById('counselingForm');
-      if (counselingForm) counselingForm.reset();
-      goToStep(1);
-    } else {
-      alert("Error saving session: " + (result.message || "Unknown error"));
-    }
-  };
+    // Layer 3 POST Submit Handler (Mobile & Desktop Compatible)
+    async function submitToGoogleSheets() {
+      const formId = document.getElementById('formId')?.value.trim();
+      const studentName = document.getElementById('studentName')?.value.trim();
 
-  const script = document.createElement('script');
-  script.src = `${SCRIPT_URL}?action=submit&payload=${encodeURIComponent(JSON.stringify(payload))}&callback=handleSubmitCallback`;
-  script.onerror = function() {
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-    }
-    alert("Submission failed. Check network connection.");
-  };
+      if (!formId || !studentName) {
+        alert("Please fill in required Layer 1 details before submitting.");
+        goToStep(1);
+        return;
+      }
 
-  document.body.appendChild(script);
-}
+      const submitBtn = document.getElementById('submitBtn');
+      let originalText = submitBtn ? submitBtn.innerHTML : "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
+      }
+
+      const payload = {
+        formId: formId,
+        studentName: studentName,
+        studentBatch: document.getElementById('studentBatch')?.value || "",
+        studentCampus: document.getElementById('studentCampus')?.value || "",
+        board: document.getElementById('board')?.value || "",
+        currentClass: document.getElementById('currentClass')?.value || "",
+        parentName: document.getElementById('parentName')?.value || "",
+        parentEmail: document.getElementById('parentEmail')?.value || "",
+        targetClass: document.getElementById('targetClass')?.value || "",
+        batchTimes: document.getElementById('batchTimes')?.value || "",
+        batchDays: document.getElementById('batchDays')?.value || "",
+        admissionFee: document.getElementById('admissionFee')?.value || 0,
+        tuitionFee: document.getElementById('tuitionFee')?.value || 0,
+        technologyFee: document.getElementById('technologyFee')?.value || 0,
+        parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
+        improvementArea: document.getElementById('improvementArea')?.value || "",
+        parentConcerns: document.getElementById('parentConcerns')?.value || "",
+        counselorNotes: document.getElementById('counselorNotes')?.value || ""
+      };
+
+      try {
+        // Direct text/plain fetch bypasses mobile CORS preflight security checks
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        alert("Counseling session saved directly to Google Sheets!");
+        const counselingForm = document.getElementById('counselingForm');
+        if (counselingForm) counselingForm.reset();
+        goToStep(1);
+
+      } catch (err) {
+        console.error("Submission Error:", err);
+        alert("Could not connect to Google Sheets. Check network connection.");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
