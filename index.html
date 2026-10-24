@@ -367,7 +367,10 @@
       document.body.appendChild(script);
     }
 
-   async function submitToGoogleSheets() {
+  // Paste your Web App URL here
+const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbypGlAgu-_0-6W3wAtVEwa1keP7vsLU_96U_pj-Tk2ovtT6KxcsU0q-lFfPI0HWqPVXVw/exec";
+
+async function submitToGoogleSheets() {
   const formId = document.getElementById('formId')?.value.trim();
   const studentName = document.getElementById('studentName')?.value.trim();
 
@@ -406,14 +409,17 @@
   };
 
   try {
-    // Direct cross-origin fetch call compatible with all mobile browsers (Android Chrome & iOS Safari)
+    // Send as URL search parameters (bypasses browser CORS blocks on PC & Mobile)
+    const formData = new URLSearchParams();
+    formData.append("payload", JSON.stringify(payload));
+
     await fetch(SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors", // Bypasses mobile cross-domain CORS block
+      mode: "no-cors",
       headers: {
-        "Content-Type": "text/plain;charset=utf-8"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: JSON.stringify(payload)
+      body: formData.toString()
     });
 
     alert("Counseling session saved directly to Google Sheets!");
@@ -423,7 +429,7 @@
 
   } catch (err) {
     console.error("Submission Error:", err);
-    alert("Could not connect to Google Sheets. Check your mobile data or Wi-Fi connection.");
+    alert("Could not connect to Google Sheets. Check network connection.");
   } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
