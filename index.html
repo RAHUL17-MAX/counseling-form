@@ -128,7 +128,6 @@
         </div>
       </section>
 
-
       <!-- ================= LAYER 2: NEXT SESSION BATCH & FEES ================= -->
       <section id="layer-2" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
         <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
@@ -138,13 +137,12 @@
           <span class="text-xs text-slate-400">Step 2 of 3</span>
         </div>
 
-        <!-- Next Session Batch Details -->
         <div class="mb-6">
           <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Next Session Batch Details</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Target Class / Stream</label>
-              <select id="targetClass" onchange="calculateFees()" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <select id="targetClass" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 <option value="Class 10 Standard">Class 10 Standard</option>
                 <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
                 <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
@@ -186,17 +184,23 @@
                 <tr>
                   <td class="p-3 font-medium">Admission / Re-enrollment Fee</td>
                   <td class="p-3 text-slate-500">One-time</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="admissionFee" value="250" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="admissionFee" value="250" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-3 font-medium">Tuition Fee</td>
                   <td class="p-3 text-slate-500">Annual</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="tuitionFee" value="3200" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="tuitionFee" value="3200" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-3 font-medium">Technology & Resource Fee</td>
                   <td class="p-3 text-slate-500">Annual</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="technologyFee" value="350" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="technologyFee" value="350" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
                 </tr>
                 <tr class="bg-slate-50 font-bold">
                   <td class="p-3" colspan="2">Total Payable Fee</td>
@@ -216,7 +220,6 @@
           </button>
         </div>
       </section>
-
 
       <!-- ================= LAYER 3: PARENT FEEDBACK & SUBMISSION ================= -->
       <section id="layer-3" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
@@ -263,7 +266,7 @@
           <button type="button" onclick="goToStep(2)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
             <i class="fa-solid fa-arrow-left"></i> Back
           </button>
-          <button type="button" onclick="submitToGoogleSheets()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+          <button type="button" id="submitBtn" onclick="submitToGoogleSheets(event)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-2.5 rounded-lg transition-colors flex items-center gap-2">
             <i class="fa-solid fa-paper-plane"></i> Submit & Save Session
           </button>
         </div>
@@ -271,11 +274,10 @@
 
     </form>
   </div>
-<!-- Hidden Iframe for submission -->
+
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <script>
-    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
     const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
 
     function goToStep(stepNumber) {
@@ -303,10 +305,9 @@
       const tech = parseFloat(document.getElementById('technologyFee').value) || 0;
       const total = admission + tuition + tech;
 
-      document.getElementById('totalFeeDisplay').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+      document.getElementById('totalFeeDisplay').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
     }
 
-    // Explicit function to populate demo data directly into Layer 1 inputs
     function loadSampleData() {
       try {
         if (document.getElementById('formId')) document.getElementById('formId').value = "STU-2026-8941";
@@ -319,7 +320,6 @@
         alert("Demo student details loaded into Layer 1!");
       } catch (err) {
         console.error("Error populating demo data:", err);
-        alert("Could not populate demo data. Check browser console for missing input IDs.");
       }
     }
 
@@ -329,12 +329,6 @@
 
       if (!formId) {
         alert("Please enter a Form ID to fetch details.");
-        return;
-      }
-
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Demo URL active. Loading sample student data.");
-        loadSampleData();
         return;
       }
 
@@ -349,9 +343,10 @@
           if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
           if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
           if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
-          alert("Student record found!");
+          if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
+          alert("Student record found and loaded!");
         } else {
-          alert("Record not found in Google Sheets for Form ID: " + formId + ". Populating demo data instead.");
+          alert("Record not found for Form ID: " + formId + ". Populating demo data instead.");
           loadSampleData();
         }
       } catch (err) {
@@ -361,9 +356,9 @@
       }
     }
 
-    function submitToGoogleSheets() {
-      const formId = document.getElementById('formId') ? document.getElementById('formId').value : "";
-      const studentName = document.getElementById('studentName') ? document.getElementById('studentName').value : "";
+    function submitToGoogleSheets(evt) {
+      const formId = document.getElementById('formId') ? document.getElementById('formId').value.trim() : "";
+      const studentName = document.getElementById('studentName') ? document.getElementById('studentName').value.trim() : "";
 
       if (!formId || !studentName) {
         alert("Please fill in required Layer 1 details before submitting.");
@@ -371,43 +366,32 @@
         return;
       }
 
-      const submitBtn = event ? (event.target || document.querySelector("button[onclick='submitToGoogleSheets()']")) : null;
-      let originalText = "";
+      const submitBtn = document.getElementById('submitBtn');
+      let originalText = submitBtn ? submitBtn.innerHTML : "";
       if (submitBtn) {
-        originalText = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Saving Session...';
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
       }
 
       const payload = {
         formId: formId,
         studentName: studentName,
-        studentBatch: document.getElementById('studentBatch') ? document.getElementById('studentBatch').value : "",
-        studentCampus: document.getElementById('studentCampus') ? document.getElementById('studentCampus').value : "",
-        board: document.getElementById('board') ? document.getElementById('board').value : "",
-        currentClass: document.getElementById('currentClass') ? document.getElementById('currentClass').value : "",
-        batchTimes: document.getElementById('batchTimes') ? document.getElementById('batchTimes').value : "",
-        batchDays: document.getElementById('batchDays') ? document.getElementById('batchDays').value : "",
-        admissionFee: document.getElementById('admissionFee') ? document.getElementById('admissionFee').value : 0,
-        tuitionFee: document.getElementById('tuitionFee') ? document.getElementById('tuitionFee').value : 0,
-        technologyFee: document.getElementById('technologyFee') ? document.getElementById('technologyFee').value : 0,
-        parentSatisfaction: document.getElementById('parentSatisfaction') ? document.getElementById('parentSatisfaction').value : "",
-        improvementArea: document.getElementById('improvementArea') ? document.getElementById('improvementArea').value : "",
-        parentConcerns: document.getElementById('parentConcerns') ? document.getElementById('parentConcerns').value : "",
-        counselorNotes: document.getElementById('counselorNotes') ? document.getElementById('counselorNotes').value : ""
+        studentBatch: document.getElementById('studentBatch')?.value || "",
+        studentCampus: document.getElementById('studentCampus')?.value || "",
+        board: document.getElementById('board')?.value || "",
+        currentClass: document.getElementById('currentClass')?.value || "",
+        parentName: document.getElementById('parentName')?.value || "",
+        targetClass: document.getElementById('targetClass')?.value || "",
+        batchTimes: document.getElementById('batchTimes')?.value || "",
+        batchDays: document.getElementById('batchDays')?.value || "",
+        admissionFee: document.getElementById('admissionFee')?.value || 0,
+        tuitionFee: document.getElementById('tuitionFee')?.value || 0,
+        technologyFee: document.getElementById('technologyFee')?.value || 0,
+        parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
+        improvementArea: document.getElementById('improvementArea')?.value || "",
+        parentConcerns: document.getElementById('parentConcerns')?.value || "",
+        counselorNotes: document.getElementById('counselorNotes')?.value || ""
       };
-
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        setTimeout(() => {
-          alert("Demo Submission Successful!");
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-          }
-          goToStep(1);
-        }, 1000);
-        return;
-      }
 
       const form = document.createElement('form');
       form.method = 'POST';
@@ -436,3 +420,5 @@
       }, 1500);
     }
   </script>
+</body>
+</html>
