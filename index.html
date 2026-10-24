@@ -374,10 +374,11 @@
         return;
       }
 
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Demo Submission Successful!");
-        return;
-      }
+      // 1. Get submit button and show loading status
+      const submitBtn = event.target || document.querySelector("button[onclick='submitToGoogleSheets()']");
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving Session...';
 
       const payload = {
         formId: formId,
@@ -397,7 +398,16 @@
         counselorNotes: document.getElementById('counselorNotes').value
       };
 
-      // Submit via dynamic POST form target into iframe (guarantees full payload delivery)
+      // 2. Submit payload into hidden iframe via dynamic form POST
+      let iframe = document.getElementById('hidden_iframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe';
+        iframe.id = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+      }
+
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = SCRIPT_URL;
@@ -412,5 +422,19 @@
       document.body.appendChild(form);
       form.submit();
       document.body.removeChild(form);
-    }
-  </script>
+
+      // 3. Trigger immediate feedback popup and reset to Layer 1 after transmission
+      setTimeout(() => {
+        alert("Counseling session saved directly to Google Sheets!");
+        
+        // Reset form inputs
+        document.getElementById('counselingForm').reset();
+        
+        // Restore submit button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        
+        // Redirect smoothly to Layer 1
+        goToStep(1);
+      }, 1500);
+    }  </script>
