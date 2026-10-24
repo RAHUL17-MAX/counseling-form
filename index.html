@@ -331,46 +331,48 @@
       alert("Demo student details loaded into Layer 1!");
     }
 
-    // JSONP Student Fetching (Works seamlessly on mobile & organizational accounts)
-    function fetchStudentDetails() {
-      const formIdInput = document.getElementById('formId');
-      const formId = formIdInput ? formIdInput.value.trim() : "";
-
-      if (!formId) {
-        alert("Please enter a Form ID to fetch details.");
-        return;
-      }
-
-      window.handleStudentFetchResponse = function(result) {
-        if (result.status === "success" && result.data) {
-          const d = result.data;
-          if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
-          if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
-          if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
-          if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
-          if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
-          if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
-          if (document.getElementById('parentEmail')) document.getElementById('parentEmail').value = d['Parent Email'] || d['parentEmail'] || '';
-          alert("Student record found!");
-        } else {
-          alert("Record not found for Form ID: " + formId + ". Populating demo data.");
-          loadSampleData();
-        }
-      };
-
-      const script = document.createElement('script');
-      script.src = `${SCRIPT_URL}?formId=${encodeURIComponent(formId)}&callback=handleStudentFetchResponse`;
-      script.onerror = function() {
-        alert("Connection failed. Loading demo data instead.");
-        loadSampleData();
-      };
-      document.body.appendChild(script);
-    }
-
-  // Paste your Web App URL here
+  // Ensure this URL is your exact published Apps Script URL
 const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbypGlAgu-_0-6W3wAtVEwa1keP7vsLU_96U_pj-Tk2ovtT6KxcsU0q-lFfPI0HWqPVXVw/exec";
 
-async function submitToGoogleSheets() {
+// 1. JSONP FETCH FUNCTION (Layer 1)
+function fetchStudentDetails() {
+  const formIdInput = document.getElementById('formId');
+  const formId = formIdInput ? formIdInput.value.trim() : "";
+
+  if (!formId) {
+    alert("Please enter a Form ID to fetch details.");
+    return;
+  }
+
+  // Create global JSONP callback function
+  window.handleFetchCallback = function(result) {
+    if (result.status === "success" && result.data) {
+      const d = result.data;
+      if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
+      if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
+      if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
+      if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
+      if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
+      if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
+      if (document.getElementById('parentEmail')) document.getElementById('parentEmail').value = d['Parent Email'] || d['parentEmail'] || '';
+      alert("Student record found!");
+    } else {
+      alert("Record not found for Form ID: " + formId + ". Loading demo data.");
+      loadSampleData();
+    }
+  };
+
+  const script = document.createElement('script');
+  script.src = `${SCRIPT_URL}?action=fetch&formId=${encodeURIComponent(formId)}&callback=handleFetchCallback`;
+  script.onerror = function() {
+    alert("Could not connect to Google Sheets. Loading demo data instead.");
+    loadSampleData();
+  };
+  document.body.appendChild(script);
+}
+
+// 2. JSONP SUBMIT FUNCTION (Layer 3 - Mobile & Desktop Compatible)
+function submitToGoogleSheets() {
   const formId = document.getElementById('formId')?.value.trim();
   const studentName = document.getElementById('studentName')?.value.trim();
 
@@ -408,32 +410,32 @@ async function submitToGoogleSheets() {
     counselorNotes: document.getElementById('counselorNotes')?.value || ""
   };
 
-  try {
-    // Send as URL search parameters (bypasses browser CORS blocks on PC & Mobile)
-    const formData = new URLSearchParams();
-    formData.append("payload", JSON.stringify(payload));
-
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: formData.toString()
-    });
-
-    alert("Counseling session saved directly to Google Sheets!");
-    const counselingForm = document.getElementById('counselingForm');
-    if (counselingForm) counselingForm.reset();
-    goToStep(1);
-
-  } catch (err) {
-    console.error("Submission Error:", err);
-    alert("Could not connect to Google Sheets. Check network connection.");
-  } finally {
+  // Create global submission callback
+  window.handleSubmitCallback = function(result) {
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
     }
-  }
+
+    if (result && result.status === "success") {
+      alert("Counseling session saved directly to Google Sheets!");
+      const counselingForm = document.getElementById('counselingForm');
+      if (counselingForm) counselingForm.reset();
+      goToStep(1);
+    } else {
+      alert("Error saving session: " + (result.message || "Unknown error"));
+    }
+  };
+
+  const script = document.createElement('script');
+  script.src = `${SCRIPT_URL}?action=submit&payload=${encodeURIComponent(JSON.stringify(payload))}&callback=handleSubmitCallback`;
+  script.onerror = function() {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+    alert("Submission failed. Check network connection.");
+  };
+
+  document.body.appendChild(script);
 }
