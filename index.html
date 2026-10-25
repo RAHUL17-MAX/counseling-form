@@ -1,438 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admissions Counseling Session Portal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <style>
-    .step-active { border-color: #3B82F6; color: #1D4ED8; background-color: #EFF6FF; }
-    .step-complete { border-color: #10B981; color: #047857; background-color: #ECFDF5; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions Counseling Session Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .step-active { border-color: #3B82F6; color: #1D4ED8; background-color: #EFF6FF; }
+    .step-complete { border-color: #10B981; color: #047857; background-color: #ECFDF5; }
+  </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800">
 
-  <!-- Main Container -->
-  <div class="max-w-5xl mx-auto px-4 py-8">
-    
-    <!-- Header -->
-    <header class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-graduation-cap text-blue-600"></i>
-          Next-Year Admission Counseling Portal
-        </h1>
-        <p class="text-sm text-slate-500 mt-1">Student Data Retrieval • Batch & Fee Planning • Parent Feedback</p>
-      </div>
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 w-fit">
-        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> Academic Session 2027–2028
-      </span>
-    </header>
+  <!-- Main Container -->
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    
+    <!-- Header -->
+    <header class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-graduation-cap text-blue-600"></i>
+          Next-Year Admission Counseling Portal
+        </h1>
+        <p class="text-sm text-slate-500 mt-1">Student Data Retrieval • Batch & Fee Planning • Parent Feedback</p>
+      </div>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 w-fit">
+        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> Academic Session 2027–2028
+      </span>
+    </header>
 
-    <!-- Stepper Navigation -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
-      <div id="step-nav-1" class="step-active border-2 rounded-lg p-4 flex items-center gap-3 transition-all">
-        <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">1</div>
-        <div>
-          <div class="font-semibold text-sm">Layer 1: Fetch Student</div>
-          <div class="text-xs text-slate-500">Form ID & Profile Details</div>
-        </div>
-      </div>
-      <div id="step-nav-2" class="border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all">
-        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-sm">2</div>
-        <div>
-          <div class="font-semibold text-sm">Layer 2: Batch & Fees</div>
-          <div class="text-xs text-slate-500">Timings, Days & Fee Structure</div>
-        </div>
-      </div>
-      <div id="step-nav-3" class="border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all">
-        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-sm">3</div>
-        <div>
-          <div class="font-semibold text-sm">Layer 3: Parent Feedback</div>
-          <div class="text-xs text-slate-500">Satisfaction, Notes & Submit</div>
-        </div>
-      </div>
-    </div>
+    <!-- Stepper Navigation -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+      <div id="step-nav-1" class="step-active border-2 rounded-lg p-4 flex items-center gap-3 transition-all">
+        <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">1</div>
+        <div>
+          <div class="font-semibold text-sm">Layer 1: Fetch Student</div>
+          <div class="text-xs text-slate-500">Form ID & Profile Details</div>
+        </div>
+      </div>
+      <div id="step-nav-2" class="border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all">
+        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-sm">2</div>
+        <div>
+          <div class="font-semibold text-sm">Layer 2: Batch & Fees</div>
+          <div class="text-xs text-slate-500">Timings, Days & Fee Structure</div>
+        </div>
+      </div>
+      <div id="step-nav-3" class="border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all">
+        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-sm">3</div>
+        <div>
+          <div class="font-semibold text-sm">Layer 3: Parent Feedback</div>
+          <div class="text-xs text-slate-500">Satisfaction, Notes & Submit</div>
+        </div>
+      </div>
+    </div>
 
-    <!-- FORM START -->
-    <form id="counselingForm" onsubmit="event.preventDefault();">
+    <!-- FORM START -->
+    <form id="counselingForm" onsubmit="event.preventDefault();">
 
-      <!-- ================= LAYER 1: FETCH STUDENT DETAILS ================= -->
-      <section id="layer-1" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
-        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
-          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-id-card text-blue-600"></i> Layer 1: Student Information & Data Fetch
-          </h2>
-          <span class="text-xs text-slate-400">Step 1 of 3</span>
-        </div>
+      <!-- ================= LAYER 1: FETCH STUDENT DETAILS ================= -->
+      <section id="layer-1" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-id-card text-blue-600"></i> Layer 1: Student Information & Data Fetch
+          </h2>
+          <span class="text-xs text-slate-400">Step 1 of 3</span>
+        </div>
 
-        <!-- Form ID Fetch Bar -->
-        <div class="bg-blue-50/60 border border-blue-100 rounded-lg p-4 mb-6">
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Form ID Search</label>
-          <div class="flex gap-2">
-            <input type="text" id="formId" placeholder="e.g. STU-2026-8941" class="flex-1 bg-white border border-slate-300 rounded-lg px-4 py-2.5 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <button type="button" onclick="fetchStudentDetails()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm flex items-center gap-2">
-              <i class="fa-solid fa-magnifying-glass"></i> Fetch Details
-            </button>
-            <button type="button" onclick="loadSampleData()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-3 py-2.5 rounded-lg transition-colors text-xs">
-              Demo Data
-            </button>
-          </div>
-        </div>
+        <!-- Form ID Fetch Bar -->
+        <div class="bg-blue-50/60 border border-blue-100 rounded-lg p-4 mb-6">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Form ID Search</label>
+          <div class="flex gap-2">
+            <input type="text" id="formId" placeholder="e.g. STU-2026-8941" class="flex-1 bg-white border border-slate-300 rounded-lg px-4 py-2.5 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button type="button" onclick="fetchStudentDetails()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass"></i> Fetch Details
+            </button>
+            <button type="button" onclick="loadSampleData()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-3 py-2.5 rounded-lg transition-colors text-xs">
+              Demo Data
+            </button>
+          </div>
+        </div>
 
-        <!-- Student Required Fields Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Name *</label>
-            <input type="text" id="studentName" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Batch (Current) *</label>
-            <input type="text" id="studentBatch" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Campus *</label>
-            <input type="text" id="studentCampus" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Board *</label>
-            <select id="board" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option value="">Select Board</option>
-              <option value="CBSE">CBSE</option>
-              <option value="ICSE">ICSE</option>
-              <option value="State Board">State Board</option>
-              <option value="IB">IB / International</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Class (Current) *</label>
-            <select id="currentClass" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option value="">Select Class</option>
-              <option value="Class 8">Class 8</option>
-              <option value="Class 9">Class 9</option>
-              <option value="Class 10">Class 10</option>
-              <option value="Class 11">Class 11</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent / Guardian Name</label>
-            <input type="text" id="parentName" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          </div>
-        </div>
+        <!-- Student Required Fields Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Name *</label>
+            <input type="text" id="studentName" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Batch (Current) *</label>
+            <input type="text" id="studentBatch" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Student Campus *</label>
+            <input type="text" id="studentCampus" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Board *</label>
+            <select id="board" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="">Select Board</option>
+              <option value="CBSE">CBSE</option>
+              <option value="ICSE">ICSE</option>
+              <option value="State Board">State Board</option>
+              <option value="IB">IB / International</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Class (Current) *</label>
+            <select id="currentClass" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="">Select Class</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 9">Class 9</option>
+              <option value="Class 10">Class 10</option>
+              <option value="Class 11">Class 11</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent / Guardian Name</label>
+            <input type="text" id="parentName" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
 
-        <div class="mt-6 flex justify-end">
-          <button type="button" onclick="goToStep(2)" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2">
-            Next: Batch & Fees <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </section>
+        <div class="mt-6 flex justify-end">
+          <button type="button" onclick="goToStep(2)" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2">
+            Next: Batch & Fees <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
 
+      <!-- ================= LAYER 2: NEXT SESSION BATCH & FEES ================= -->
+      <section id="layer-2" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
+        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-days text-blue-600"></i> Layer 2: Next Session Batch Details & Fee Structure
+          </h2>
+          <span class="text-xs text-slate-400">Step 2 of 3</span>
+        </div>
 
-      <!-- ================= LAYER 2: NEXT SESSION BATCH & FEES ================= -->
-      <section id="layer-2" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
-        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
-          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-calendar-days text-blue-600"></i> Layer 2: Next Session Batch Details & Fee Structure
-          </h2>
-          <span class="text-xs text-slate-400">Step 2 of 3</span>
-        </div>
+        <div class="mb-6">
+          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Next Session Batch Details</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Target Class / Stream</label>
+              <select id="targetClass" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Class 10 Standard">Class 10 Standard</option>
+                <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
+                <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
+                <option value="Class 11 Commerce">Class 11 Commerce</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Times *</label>
+              <select id="batchTimes" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Morning (08:00 AM - 11:30 AM)">Morning (08:00 AM - 11:30 AM)</option>
+                <option value="Afternoon (01:00 PM - 04:30 PM)">Afternoon (01:00 PM - 04:30 PM)</option>
+                <option value="Evening (05:00 PM - 08:30 PM)">Evening (05:00 PM - 08:30 PM)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Days *</label>
+              <select id="batchDays" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Mon - Wed - Fri">Mon - Wed - Fri (MWF)</option>
+                <option value="Tue - Thu - Sat">Tue - Thu - Sat (TTS)</option>
+                <option value="Weekend Intensive (Sat & Sun)">Weekend Intensive (Sat & Sun)</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-        <!-- Next Session Batch Details -->
-        <div class="mb-6">
-          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Next Session Batch Details</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Target Class / Stream</label>
-              <select id="targetClass" onchange="calculateFees()" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option value="Class 10 Standard">Class 10 Standard</option>
-                <option value="Class 11 Science (PCM)">Class 11 Science (PCM)</option>
-                <option value="Class 11 Science (PCB)">Class 11 Science (PCB)</option>
-                <option value="Class 11 Commerce">Class 11 Commerce</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Times *</label>
-              <select id="batchTimes" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option value="Morning (08:00 AM - 11:30 AM)">Morning (08:00 AM - 11:30 AM)</option>
-                <option value="Afternoon (01:00 PM - 04:30 PM)">Afternoon (01:00 PM - 04:30 PM)</option>
-                <option value="Evening (05:00 PM - 08:30 PM)">Evening (05:00 PM - 08:30 PM)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Batch Days *</label>
-              <select id="batchDays" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option value="Mon - Wed - Fri">Mon - Wed - Fri (MWF)</option>
-                <option value="Tue - Thu - Sat">Tue - Thu - Sat (TTS)</option>
-                <option value="Weekend Intensive (Sat & Sun)">Weekend Intensive (Sat & Sun)</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <!-- Fee Details Table -->
+        <div class="mb-6">
+          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Fee Details</h3>
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase">
+                <tr>
+                  <th class="p-3">Component</th>
+                  <th class="p-3">Frequency</th>
+                  <th class="p-3 text-right">Amount ($)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-3 font-medium">Admission / Re-enrollment Fee</td>
+                  <td class="p-3 text-slate-500">One-time</td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="admissionFee" value="250" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium">Tuition Fee</td>
+                  <td class="p-3 text-slate-500">Annual</td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="tuitionFee" value="3200" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium">Technology & Resource Fee</td>
+                  <td class="p-3 text-slate-500">Annual</td>
+                  <td class="p-3 text-right font-mono">
+                    <input type="number" id="technologyFee" value="350" oninput="calculateFees()" class="w-28 text-right border border-slate-200 rounded px-2 py-1">
+                  </td>
+                </tr>
+                <tr class="bg-slate-50 font-bold">
+                  <td class="p-3" colspan="2">Total Payable Fee</td>
+                  <td class="p-3 text-right font-mono text-blue-600 text-base" id="totalFeeDisplay">$3,800.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-        <!-- Fee Details Table -->
-        <div class="mb-6">
-          <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Fee Details</h3>
-          <div class="border border-slate-200 rounded-lg overflow-hidden">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase">
-                <tr>
-                  <th class="p-3">Component</th>
-                  <th class="p-3">Frequency</th>
-                  <th class="p-3 text-right">Amount ($)</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100">
-                <tr>
-                  <td class="p-3 font-medium">Admission / Re-enrollment Fee</td>
-                  <td class="p-3 text-slate-500">One-time</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="admissionFee" value="250" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-medium">Tuition Fee</td>
-                  <td class="p-3 text-slate-500">Annual</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="tuitionFee" value="3200" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-medium">Technology & Resource Fee</td>
-                  <td class="p-3 text-slate-500">Annual</td>
-                  <td class="p-3 text-right font-mono"><input type="number" id="technologyFee" value="350" onchange="calculateFees()" class="w-24 text-right border border-slate-200 rounded px-2 py-1"></td>
-                </tr>
-                <tr class="bg-slate-50 font-bold">
-                  <td class="p-3" colspan="2">Total Payable Fee</td>
-                  <td class="p-3 text-right font-mono text-blue-600 text-base" id="totalFeeDisplay">$3,800.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <div class="mt-6 flex justify-between">
+          <button type="button" onclick="goToStep(1)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" onclick="goToStep(3)" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2">
+            Next: Parent Feedback <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
 
-        <div class="mt-6 flex justify-between">
-          <button type="button" onclick="goToStep(1)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
-            <i class="fa-solid fa-arrow-left"></i> Back
-          </button>
-          <button type="button" onclick="goToStep(3)" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2">
-            Next: Parent Feedback <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </section>
+      <!-- ================= LAYER 3: PARENT FEEDBACK & SUBMISSION ================= -->
+      <section id="layer-3" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
+        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-comments text-blue-600"></i> Layer 3: Feedback Points from Parents
+          </h2>
+          <span class="text-xs text-slate-400">Step 3 of 3</span>
+        </div>
 
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Satisfaction Rating</label>
+            <select id="parentSatisfaction" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="5 - Highly Satisfied">⭐⭐⭐⭐⭐ 5 - Highly Satisfied</option>
+              <option value="4 - Satisfied">⭐⭐⭐⭐ 4 - Satisfied</option>
+              <option value="3 - Neutral">⭐⭐⭐ 3 - Neutral</option>
+              <option value="2 - Needs Improvement">⭐⭐ 2 - Needs Improvement</option>
+            </select>
+          </div>
 
-      <!-- ================= LAYER 3: PARENT FEEDBACK & SUBMISSION ================= -->
-      <section id="layer-3" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6 hidden">
-        <div class="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
-          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-comments text-blue-600"></i> Layer 3: Feedback Points from Parents
-          </h2>
-          <span class="text-xs text-slate-400">Step 3 of 3</span>
-        </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Key Area of Improvement Requested</label>
+            <select id="improvementArea" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Academic Support & Mentorship">Academic Support & Mentorship</option>
+              <option value="Extracurricular & Sports Facilities">Extracurricular & Sports Facilities</option>
+              <option value="Teacher Communication">Teacher Communication</option>
+              <option value="Infrastructure & Labs">Infrastructure & Labs</option>
+            </select>
+          </div>
 
-        <div class="space-y-4 mb-6">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Satisfaction Rating</label>
-            <select id="parentSatisfaction" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option value="5 - Highly Satisfied">⭐⭐⭐⭐⭐ 5 - Highly Satisfied</option>
-              <option value="4 - Satisfied">⭐⭐⭐⭐ 4 - Satisfied</option>
-              <option value="3 - Neutral">⭐⭐⭐ 3 - Neutral</option>
-              <option value="2 - Needs Improvement">⭐⭐ 2 - Needs Improvement</option>
-            </select>
-          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Concerns / Suggestions</label>
+            <textarea id="parentConcerns" rows="3" placeholder="Enter specific feedback provided by parents..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Key Area of Improvement Requested</label>
-            <select id="improvementArea" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option value="Academic Support & Mentorship">Academic Support & Mentorship</option>
-              <option value="Extracurricular & Sports Facilities">Extracurricular & Sports Facilities</option>
-              <option value="Teacher Communication">Teacher Communication</option>
-              <option value="Infrastructure & Labs">Infrastructure & Labs</option>
-            </select>
-          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Counselor Internal Notes</label>
+            <textarea id="counselorNotes" rows="2" placeholder="Private internal session notes..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          </div>
+        </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Parent Concerns / Suggestions</label>
-            <textarea id="parentConcerns" rows="3" placeholder="Enter specific feedback provided by parents..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
-          </div>
+        <div class="mt-6 flex justify-between">
+          <button type="button" onclick="goToStep(2)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" id="submitBtn" onclick="submitToGoogleSheets(event)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Submit & Save Session
+          </button>
+        </div>
+      </section>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Counselor Internal Notes</label>
-            <textarea id="counselorNotes" rows="2" placeholder="Private internal session notes..." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
-          </div>
-        </div>
+    </form>
+  </div>
 
-        <div class="mt-6 flex justify-between">
-          <button type="button" onclick="goToStep(2)" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
-            <i class="fa-solid fa-arrow-left"></i> Back
-          </button>
-          <button type="button" onclick="submitToGoogleSheets()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-2.5 rounded-lg transition-colors flex items-center gap-2">
-            <i class="fa-solid fa-paper-plane"></i> Submit & Save Session
-          </button>
-        </div>
-      </section>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-    </form>
-  </div>
-<!-- Hidden Iframe for submission -->
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+  <script>
+    const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbwm1otkpbJ7mG05X0NUcntKHd3QJaSYHqGzirI_Uy5sPCzQLXPSHiRNN5eEHnfF1LDxoQ/exec";
 
-  <script>
-    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
-    const SCRIPT_URL = "https://script.google.com/a/macros/allen.in/s/AKfycbzyIVQ7NcCdcPlxqH-BdhHL8XcBK5X_swAYcBMZ1qKFsTwu47xir7V8jGpngNZWR-puNw/exec";
+    function goToStep(stepNumber) {
+      document.getElementById('layer-1').classList.add('hidden');
+      document.getElementById('layer-2').classList.add('hidden');
+      document.getElementById('layer-3').classList.add('hidden');
 
-    function goToStep(stepNumber) {
-      document.getElementById('layer-1').classList.add('hidden');
-      document.getElementById('layer-2').classList.add('hidden');
-      document.getElementById('layer-3').classList.add('hidden');
+      document.getElementById(`layer-${stepNumber}`).classList.remove('hidden');
 
-      document.getElementById(`layer-${stepNumber}`).classList.remove('hidden');
+      for (let i = 1; i <= 3; i++) {
+        const nav = document.getElementById(`step-nav-${i}`);
+        if (i === stepNumber) {
+          nav.className = "step-active border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
+        } else if (i < stepNumber) {
+          nav.className = "step-complete border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
+        } else {
+          nav.className = "border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all";
+        }
+      }
+    }
 
-      for (let i = 1; i <= 3; i++) {
-        const nav = document.getElementById(`step-nav-${i}`);
-        if (i === stepNumber) {
-          nav.className = "step-active border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
-        } else if (i < stepNumber) {
-          nav.className = "step-complete border-2 rounded-lg p-4 flex items-center gap-3 transition-all";
-        } else {
-          nav.className = "border-2 border-slate-200 bg-white rounded-lg p-4 flex items-center gap-3 text-slate-400 transition-all";
-        }
-      }
-    }
+    function calculateFees() {
+      const admission = parseFloat(document.getElementById('admissionFee').value) || 0;
+      const tuition = parseFloat(document.getElementById('tuitionFee').value) || 0;
+      const tech = parseFloat(document.getElementById('technologyFee').value) || 0;
+      const total = admission + tuition + tech;
 
-    function calculateFees() {
-      const admission = parseFloat(document.getElementById('admissionFee').value) || 0;
-      const tuition = parseFloat(document.getElementById('tuitionFee').value) || 0;
-      const tech = parseFloat(document.getElementById('technologyFee').value) || 0;
-      const total = admission + tuition + tech;
+      document.getElementById('totalFeeDisplay').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    }
 
-      document.getElementById('totalFeeDisplay').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
-    }
+    function loadSampleData() {
+      try {
+        if (document.getElementById('formId')) document.getElementById('formId').value = "STU-2026-8941";
+        if (document.getElementById('studentName')) document.getElementById('studentName').value = "Alex Morgan";
+        if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = "2025-2026 Morning-A";
+        if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = "Main City Campus";
+        if (document.getElementById('board')) document.getElementById('board').value = "CBSE";
+        if (document.getElementById('currentClass')) document.getElementById('currentClass').value = "Class 10";
+        if (document.getElementById('parentName')) document.getElementById('parentName').value = "Robert Morgan";
+        alert("Demo student details loaded into Layer 1!");
+      } catch (err) {
+        console.error("Error populating demo data:", err);
+      }
+    }
 
-    // Explicit function to populate demo data directly into Layer 1 inputs
-    function loadSampleData() {
-      try {
-        if (document.getElementById('formId')) document.getElementById('formId').value = "STU-2026-8941";
-        if (document.getElementById('studentName')) document.getElementById('studentName').value = "Alex Morgan";
-        if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = "2025-2026 Morning-A";
-        if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = "Main City Campus";
-        if (document.getElementById('board')) document.getElementById('board').value = "CBSE";
-        if (document.getElementById('currentClass')) document.getElementById('currentClass').value = "Class 10";
-        if (document.getElementById('parentName')) document.getElementById('parentName').value = "Robert Morgan";
-        alert("Demo student details loaded into Layer 1!");
-      } catch (err) {
-        console.error("Error populating demo data:", err);
-        alert("Could not populate demo data. Check browser console for missing input IDs.");
-      }
-    }
+    async function fetchStudentDetails() {
+      const formIdInput = document.getElementById('formId');
+      const formId = formIdInput ? formIdInput.value.trim() : "";
 
-    async function fetchStudentDetails() {
-      const formIdInput = document.getElementById('formId');
-      const formId = formIdInput ? formIdInput.value.trim() : "";
+      if (!formId) {
+        alert("Please enter a Form ID to fetch details.");
+        return;
+      }
 
-      if (!formId) {
-        alert("Please enter a Form ID to fetch details.");
-        return;
-      }
+      try {
+        const response = await fetch(`${SCRIPT_URL}?formId=${encodeURIComponent(formId)}`);
+        const result = await response.json();
 
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        alert("Demo URL active. Loading sample student data.");
-        loadSampleData();
-        return;
-      }
+        if (result.status === "success" && result.data) {
+          const d = result.data;
+          if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
+          if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
+          if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
+          if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
+          if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
+          if (document.getElementById('parentName')) document.getElementById('parentName').value = d['Parent Name'] || d['parentName'] || '';
+          alert("Student record found and loaded!");
+        } else {
+          alert("Record not found for Form ID: " + formId + ". Populating demo data instead.");
+          loadSampleData();
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        alert("Connection to Google Sheets failed. Loading demo data instead.");
+        loadSampleData();
+      }
+    }
 
-      try {
-        const response = await fetch(`${SCRIPT_URL}?formId=${encodeURIComponent(formId)}`);
-        const result = await response.json();
+    function submitToGoogleSheets(evt) {
+      const formId = document.getElementById('formId') ? document.getElementById('formId').value.trim() : "";
+      const studentName = document.getElementById('studentName') ? document.getElementById('studentName').value.trim() : "";
 
-        if (result.status === "success" && result.data) {
-          const d = result.data;
-          if (document.getElementById('studentName')) document.getElementById('studentName').value = d['Student Name'] || d['studentName'] || '';
-          if (document.getElementById('studentBatch')) document.getElementById('studentBatch').value = d['Batch'] || d['studentBatch'] || '';
-          if (document.getElementById('studentCampus')) document.getElementById('studentCampus').value = d['Campus'] || d['studentCampus'] || '';
-          if (document.getElementById('board')) document.getElementById('board').value = d['Board'] || d['board'] || '';
-          if (document.getElementById('currentClass')) document.getElementById('currentClass').value = d['Class'] || d['currentClass'] || '';
-          alert("Student record found!");
-        } else {
-          alert("Record not found in Google Sheets for Form ID: " + formId + ". Populating demo data instead.");
-          loadSampleData();
-        }
-      } catch (err) {
-        console.error("Fetch Error:", err);
-        alert("Connection to Google Sheets failed. Loading demo data instead.");
-        loadSampleData();
-      }
-    }
+      if (!formId || !studentName) {
+        alert("Please fill in required Layer 1 details before submitting.");
+        goToStep(1);
+        return;
+      }
 
-    function submitToGoogleSheets() {
-      const formId = document.getElementById('formId') ? document.getElementById('formId').value : "";
-      const studentName = document.getElementById('studentName') ? document.getElementById('studentName').value : "";
+      const submitBtn = document.getElementById('submitBtn');
+      let originalText = submitBtn ? submitBtn.innerHTML : "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving...';
+      }
 
-      if (!formId || !studentName) {
-        alert("Please fill in required Layer 1 details before submitting.");
-        goToStep(1);
-        return;
-      }
+      const payload = {
+        formId: formId,
+        studentName: studentName,
+        studentBatch: document.getElementById('studentBatch')?.value || "",
+        studentCampus: document.getElementById('studentCampus')?.value || "",
+        board: document.getElementById('board')?.value || "",
+        currentClass: document.getElementById('currentClass')?.value || "",
+        parentName: document.getElementById('parentName')?.value || "",
+        targetClass: document.getElementById('targetClass')?.value || "",
+        batchTimes: document.getElementById('batchTimes')?.value || "",
+        batchDays: document.getElementById('batchDays')?.value || "",
+        admissionFee: document.getElementById('admissionFee')?.value || 0,
+        tuitionFee: document.getElementById('tuitionFee')?.value || 0,
+        technologyFee: document.getElementById('technologyFee')?.value || 0,
+        parentSatisfaction: document.getElementById('parentSatisfaction')?.value || "",
+        improvementArea: document.getElementById('improvementArea')?.value || "",
+        parentConcerns: document.getElementById('parentConcerns')?.value || "",
+        counselorNotes: document.getElementById('counselorNotes')?.value || ""
+      };
 
-      const submitBtn = event ? (event.target || document.querySelector("button[onclick='submitToGoogleSheets()']")) : null;
-      let originalText = "";
-      if (submitBtn) {
-        originalText = submitBtn.innerHTML;
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Saving Session...';
-      }
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SCRIPT_URL;
+      form.target = 'hidden_iframe';
 
-      const payload = {
-        formId: formId,
-        studentName: studentName,
-        studentBatch: document.getElementById('studentBatch') ? document.getElementById('studentBatch').value : "",
-        studentCampus: document.getElementById('studentCampus') ? document.getElementById('studentCampus').value : "",
-        board: document.getElementById('board') ? document.getElementById('board').value : "",
-        currentClass: document.getElementById('currentClass') ? document.getElementById('currentClass').value : "",
-        batchTimes: document.getElementById('batchTimes') ? document.getElementById('batchTimes').value : "",
-        batchDays: document.getElementById('batchDays') ? document.getElementById('batchDays').value : "",
-        admissionFee: document.getElementById('admissionFee') ? document.getElementById('admissionFee').value : 0,
-        tuitionFee: document.getElementById('tuitionFee') ? document.getElementById('tuitionFee').value : 0,
-        technologyFee: document.getElementById('technologyFee') ? document.getElementById('technologyFee').value : 0,
-        parentSatisfaction: document.getElementById('parentSatisfaction') ? document.getElementById('parentSatisfaction').value : "",
-        improvementArea: document.getElementById('improvementArea') ? document.getElementById('improvementArea').value : "",
-        parentConcerns: document.getElementById('parentConcerns') ? document.getElementById('parentConcerns').value : "",
-        counselorNotes: document.getElementById('counselorNotes') ? document.getElementById('counselorNotes').value : ""
-      };
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'payload';
+      input.value = JSON.stringify(payload);
 
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
-        setTimeout(() => {
-          alert("Demo Submission Successful!");
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-          }
-          goToStep(1);
-        }, 1000);
-        return;
-      }
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
 
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = SCRIPT_URL;
-      form.target = 'hidden_iframe';
-
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'payload';
-      input.value = JSON.stringify(payload);
-
-      form.appendChild(input);
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      setTimeout(() => {
-        alert("Counseling session saved directly to Google Sheets!");
-        const counselingForm = document.getElementById('counselingForm');
-        if (counselingForm) counselingForm.reset();
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        }
-        goToStep(1);
-      }, 1500);
-    }
-  </script>
+      setTimeout(() => {
+        alert("Counseling session saved directly to Google Sheets!");
+        const counselingForm = document.getElementById('counselingForm');
+        if (counselingForm) counselingForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+        goToStep(1);
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
